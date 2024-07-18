@@ -1,0 +1,23 @@
+<!-- <nav>
+  <ul>
+    <li><a routerLink="/">Home</a></li>
+    <li><a routerLink="/search">Search</a></li>
+    <li><a routerLink="/past-searches">Past Searches</a></li>
+  </ul>
+</nav> -->
+<!-- src/app/components/navbar/navbar.component.html -->
+<mat-toolbar color="primary">
+  <span class="spacer"></span>
+  <nav>
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button routerLink="/search">Search</a>
+    <a mat-button routerLink="/past-searches">Past Searches</a>
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+      <button mat-button (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <a mat-button routerLink="/login">Login</a>
+      <a mat-button routerLink="/signup">Sign Up</a>
+    </ng-template>
+  </nav>
+</mat-toolbar>

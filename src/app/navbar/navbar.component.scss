@@ -1,0 +1,40 @@
+// nav {
+//   background-color: #333;
+//   color: #fff;
+//   padding: 1em;
+
+//   ul {
+//     list-style: none;
+//     display: flex;
+//     justify-content: space-around;
+
+//     li {
+//       a {
+//         color: #fff;
+//         text-decoration: none;
+
+//         &:hover {
+//           text-decoration: underline;
+//         }
+//       }
+//     }
+//   }
+// }
+/* src/app/components/navbar/navbar.component.scss */
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+
+  a, button {
+    margin-left: 16px;
+  }
+}

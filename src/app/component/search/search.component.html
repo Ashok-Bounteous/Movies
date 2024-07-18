@@ -1,0 +1,15 @@
+<!-- src/app/components/search/search.component.html -->
+<div class="search-container">
+  <input #searchInput type="text" placeholder="Search for a movie..." />
+  <button (click)="onSearch(searchInput.value)">Search</button>
+
+  <div *ngIf="selectedMovie$ | async as movie" (click)="onSelectMovie(movie)" class="movie-item">
+    <h2>{{ movie.Title }}</h2>
+    <img [src]="movie.Poster" alt="{{ movie.Title }}">
+    <p>{{ movie.Plot }}</p>
+  </div>
+
+  <div *ngIf="error$ | async as error">
+    <p class="error">{{ error }}</p>
+  </div>
+</div>

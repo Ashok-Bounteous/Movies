@@ -1,0 +1,8 @@
+<!-- src/app/components/movie-list/movie-list.component.html -->
+<div class="movie-list">
+  <div *ngFor="let movie of movies$ | async" class="movie-item" (click)="onSelectMovie(movie)">
+    <img [src]="movie.Poster" alt="{{ movie.Title }}">
+    <h3>{{ movie.Title }}</h3>
+    <p>{{ movie.Year }}</p>
+  </div>
+</div>

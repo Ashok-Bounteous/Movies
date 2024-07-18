@@ -1,0 +1,19 @@
+/* src/app/components/actor-details/actor-details.component.scss */
+.actor-details {
+    padding: 20px;
+  
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 1em;
+      margin-bottom: 5px;
+  
+      strong {
+        font-weight: bold;
+      }
+    }
+  }
+  

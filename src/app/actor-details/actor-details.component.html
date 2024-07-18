@@ -1,0 +1,14 @@
+<p>{{actorName}}</p>
+<div *ngIf="actor$ | async as actor" class="actor-details">
+    <h2>{{ actor.name }}</h2>
+    <p><strong>Net Worth:</strong> {{ actor.net_worth | currency }}</p>
+    <p><strong>Gender:</strong> {{ actor.gender }}</p>
+    <p><strong>Nationality:</strong> {{ actor.nationality }}</p>
+    <p><strong>Occupations:</strong> {{ actor.occupation.join(', ') }}</p>
+    <p><strong>Height:</strong> {{ actor.height }} m</p>
+    <p><strong>Birthday:</strong> {{ actor.birthday | date }}</p>
+  </div>
+  <div *ngIf="!(actor$ | async)" class="no-actor-details">
+    <p>Actor details not available.</p>
+  </div>
+  

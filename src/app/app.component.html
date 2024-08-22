@@ -1,20 +1,13 @@
-<!-- src/app/app.component.html -->
-<!-- <div class="app-container"> -->
-  <!-- <app-navbar></app-navbar> -->
-  <!-- <app-search></app-search>
-  <app-movie-list></app-movie-list>
-  <app-movie-details></app-movie-details> -->
-  <!-- <router-outlet></router-outlet> -->
-<!-- </div> -->
-<!-- src/app/app.component.html -->
-<div class="app-container">
+<div class="app-container" fxLayout="column" fxLayoutAlign="start stretch">
   <mat-toolbar color="primary">
-    <span>My Application</span>
-    <!-- Add more toolbar content here if needed -->
-    <hr/>
-    <app-navbar></app-navbar>
+    <span class="app-title">Movies Application</span>
+    
+    <!-- Navbar -->
+    <app-navbar fxHide.lt-md></app-navbar>
+    <!-- <span class="fill-space"></span> This will push the navbar to the right -->
   </mat-toolbar>
-  <div class="content-container">
+
+  <div class="content-container" fxFlex>
     <router-outlet></router-outlet>
   </div>
 </div>

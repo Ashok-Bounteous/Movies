@@ -1,37 +1,129 @@
 .past-searches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Distribute items evenly */
+  padding: 1em;
+  gap: 2.5em; /* Add spacing between items */
+}
+
+.movie-item {
+  flex: 1 1 calc(11% - 2.5em); /* Adjusted to ensure items are evenly spaced for 8 columns */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  display: flex;
+  flex-direction: column; /* Ensure children are stacked vertically */
+  align-items: center; /* Center align items */
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  background-color: #f5f5f5; /* Changed background color */
+  border: 1px solid #333; /* Darker border */
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s; /* Smooth transition */
+  margin: 0.5em; /* Add padding to the movie item */
+
+  &:hover {
+    background-color: #e0e0e0; /* Changed background color on hover */
+    transform: scale(1.05); /* Scale up on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
+  }
+
+  &:hover mat-card-content {
+    background-color: #d0d0d0; /* Change mat-card-content background color on hover */
+  }
+
+  &:hover mat-card {
+    background-color: #d0d0d0; /* Change mat-card-content background color on hover */
+  }
+
+  mat-card {
+    width: 100%; /* Ensure mat-card takes the full width */
+    height: 100%; /* Ensure mat-card takes the full height */
     display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-  
-    .movie-item {
-      width: 150px;
-      text-align: center;
-  
-      img {
-        width: 100%;
-        height: auto;
-      }
-  
-      h3 {
-        font-size: 1em;
-        margin: 0.5em 0;
-      }
-  
-      p {
-        color: #777;
-      }
-    }
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.3s, transform 0.01s, box-shadow 0.01s; /* Smooth transition */
+    transform-origin: center center; /* Center transform origin */
   }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  mat-card-content {
+    padding: 12px; /* Adjusted padding within the card content */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }
+
+  h3 {
+    font-size: 1.1em; /* Increased font size */
+    color: #333; /* Darker text */
+    margin: 0.5em 0;
+  }
+
+  p {
+    font-size: 0.9em; /* Increased font size */
+    color: #555; /* Darker text */
+  }
+}
+
+@media (min-width: 1200px) {
   .movie-item {
-    cursor: pointer;
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  
-    &:hover {
-      background-color: #f0f0f0;
-    }
+    flex: 1 1 calc(11% - 2.5em); /* 8 columns for extra-large screens */
   }
-  
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+  .movie-item {
+    flex: 1 1 calc(12.5% - 2.5em); /* 7 columns */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+  .movie-item {
+    flex: 1 1 calc(14.3% - 2.5em); /* 6 columns for large screens */
+  }
+}
+
+@media (min-width: 900px) and (max-width: 991px) {
+  .movie-item {
+    flex: 1 1 calc(16.66% - 2.5em); /* 5 columns for large screens */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .movie-item {
+    flex: 1 1 calc(20% - 2.5em); /* 4 columns for medium screens */
+  }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .movie-item {
+    flex: 1 1 calc(25% - 2.5em); /* 3 columns for small-medium screens */
+  }
+}
+
+@media (min-width: 500px) and (max-width: 599px) {
+  .movie-item {
+    flex: 1 1 calc(33.33% - 2.5em); /* 2 columns */
+  }
+}
+
+@media (min-width: 400px) and (max-width: 499px) {
+  .movie-item {
+    flex: 1 1 calc(50% - 2.5em); /* 2 columns */
+  }
+}
+
+@media (max-width: 399px) {
+  .past-searches {
+    flex-direction: column; /* Stack items vertically on mobile */
+    margin: 10px; /* Remove padding on mobile */
+  }
+
+  .movie-item {
+    flex: 1 1 100%; /* Single column for mobile screens */
+  }
+}

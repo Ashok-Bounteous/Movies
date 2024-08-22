@@ -1,5 +1,5 @@
 // src/app/app.module.ts
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -22,7 +22,10 @@ import { ActorDetailsComponent } from './actor-details/actor-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './user-auth/login/login.component';
 import { SignupComponent } from './user-auth/signup/signup.component';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { register } from 'swiper/element/bundle';
+// register Swiper custom elements
+register();
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { SignupComponent } from './user-auth/signup/signup.component';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true }),
     AppRoutingModule
   ],
-  providers: [MovieService],
-  bootstrap: [AppComponent]
+  providers: [MovieService, provideAnimationsAsync()],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

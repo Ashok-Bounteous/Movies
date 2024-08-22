@@ -20,21 +20,19 @@
 //     }
 //   }
 // }
+
 /* src/app/components/navbar/navbar.component.scss */
 mat-toolbar {
   display: flex;
-  justify-content: space-between;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-nav {
-  display: flex;
+  justify-content: flex-end;
   align-items: center;
+  min-width: 1vw;
+  width: auto;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  background-color: rgb(252, 216, 247);
 
-  a, button {
-    margin-left: 16px;
-  }
 }
+
+
+

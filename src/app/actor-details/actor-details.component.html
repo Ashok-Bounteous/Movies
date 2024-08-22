@@ -1,14 +1,17 @@
-<p>{{actorName}}</p>
-<div *ngIf="actor$ | async as actor" class="actor-details">
-    <h2>{{ actor.name }}</h2>
+<!-- src/app/components/actor-details/actor-details.component.html -->
+<mat-card class="actor-card">
+  <mat-card-header>
+    <mat-card-title>{{actorName}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content *ngIf="actor$ | async as actor">
     <p><strong>Net Worth:</strong> {{ actor.net_worth | currency }}</p>
     <p><strong>Gender:</strong> {{ actor.gender }}</p>
     <p><strong>Nationality:</strong> {{ actor.nationality }}</p>
     <p><strong>Occupations:</strong> {{ actor.occupation.join(', ') }}</p>
     <p><strong>Height:</strong> {{ actor.height }} m</p>
     <p><strong>Birthday:</strong> {{ actor.birthday | date }}</p>
-  </div>
-  <div *ngIf="!(actor$ | async)" class="no-actor-details">
+  </mat-card-content>
+  <mat-card-content *ngIf="!(actor$ | async)">
     <p>Actor details not available.</p>
-  </div>
-  
+  </mat-card-content>
+</mat-card>

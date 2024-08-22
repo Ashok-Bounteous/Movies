@@ -41,6 +41,7 @@ import { selectSelectedMovie, selectMovieError } from '../../store/movie/movie.s
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { localStorageToken } from '../../javascriptapis/localstorage.token';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -49,12 +50,14 @@ import { localStorageToken } from '../../javascriptapis/localstorage.token';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
+  [x: string]: any;
   selectedMovie$: Observable<Movie | null>;
   error$: Observable<any>;
 
   constructor(
     private store: Store<AppState>, 
     private http: HttpClient, 
+    private route: Router,
     @Inject(localStorageToken) private storage: Storage) 
     {
     this.selectedMovie$ = this.store.select(selectSelectedMovie);
@@ -63,9 +66,11 @@ export class SearchComponent {
   }
 
   onSearch(title: string): void {
+    
+    const userEmail = this.storage.getItem('user_email');
     this.store.dispatch(searchMovie({ title }));
     this.selectedMovie$.subscribe(movie => {
-      let temMovie = {...movie,email:"abc@gmail.com"}
+      let temMovie = {...movie,email: userEmail}
       if (movie) {
         this.http.post(`${environment.apiDbUrl}/userMovies`, temMovie )
           .subscribe();
@@ -75,5 +80,6 @@ export class SearchComponent {
 
   onSelectMovie(movie: Movie): void {
     this.store.dispatch(selectMovie({ movie }));
+    this.route.navigate(['movie-details']);
   }
 }

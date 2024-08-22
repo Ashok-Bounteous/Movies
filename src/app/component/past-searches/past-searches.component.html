@@ -1,9 +1,11 @@
-<!-- src/app/components/past-searches/past-searches.component.html -->
 <div class="past-searches">
-    <div *ngFor="let movie of pastSearches$ | async" class="movie-item" (click)="onSelectMovie(movie)">
-      <img [src]="movie.Poster" alt="{{ movie.Title }}">
-      <h3>{{ movie.Title }}</h3>
-      <p>{{ movie.Year }}</p>
-    </div>
+  <div *ngFor="let movie of pastSearches$ | async" class="movie-item" (click)="onSelectMovie(movie)">
+    <mat-card>
+      <img mat-card-image [src]="movie.Poster" alt="{{ movie.Title }}">
+      <mat-card-content>
+        <h3 mat-card-title>{{ movie.Title }}</h3>
+        <p mat-card-subtitle>{{ movie.Year }}</p>
+      </mat-card-content>
+    </mat-card>
   </div>
-  
+</div>

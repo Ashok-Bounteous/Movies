@@ -64,7 +64,7 @@ export class PastSearchesComponent implements OnInit {
     const userEmail = this.storage.getItem('user_email');
     this.pastSearches$ = this.http.get<Movie[]>(`${environment.apiDbUrl}/userMovies`)
       .pipe(
-        map(movies=>movies.filter(movie=> movie.email && movie.email=='abc@gmail.com')),
+        map(movies => movies.filter(movie => movie.email && movie.email === userEmail)),//abc@gmail.com
         catchError(err => {
           console.error('Error fetching user movies:', err);
           return throwError(err);
@@ -74,6 +74,6 @@ export class PastSearchesComponent implements OnInit {
 
   onSelectMovie(movie: Movie): void {
     this.store.dispatch(selectMovie({ movie }));
-    this.route.navigate(['movie-details'])
+    this.route.navigate(['movie-details']);
   }
 }

@@ -1,60 +1,9 @@
-// import { Component, Inject } from '@angular/core';
-// import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import { Signup } from '../../interface/userauth';
-// import { localStorageToken } from '../../javascriptapis/localstorage.token';
-// import { Router } from '@angular/router';
-// import { UserauthService } from '../../services/userauth.service';
-
-// @Component({
-//   selector: 'app-signup',
-//   templateUrl: './signup.component.html',
-//   styleUrls: ['./signup.component.scss']
-// })
-// export class SignupComponent {
-//   signupDetails: FormGroup;
-
-//   constructor(
-//     private formBuilder: FormBuilder,
-//     private userAuth: UserauthService,
-//     @Inject(localStorageToken) private localStorageToken: Storage,
-//     private router: Router
-//   ) {
-//     this.signupDetails = this.formBuilder.group({
-//       email: ['', Validators.required],
-//       password: ['', Validators.required],
-//       confirmPassword: ['', Validators.required]
-//     });
-//   }
-
-//   onSubmit() {
-//     if (this.signupDetails.value.password !== this.signupDetails.value.confirmPassword) {
-//       alert('Passwords do not match');
-//       return;
-//     }
-
-//     const userDetails: Signup = {
-//       email: this.signupDetails.value.email,
-//       name: "string",
-//       password: this.signupDetails.value.password,
-//       role: "admin",
-//       avatar: "https://th.bing.com/th?id=OIP.ywHdSgiEyb--OBN2gD2w1QHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-//     };
-
-//     this.userAuth.userSignup(userDetails).subscribe({
-//       next: data => {
-//         this.localStorageToken.setItem('access_token', data.access_token);
-//         this.localStorageToken.setItem('refresh_token', data.refresh_token);
-//         this.router.navigate(['']);
-//       },
-//       error: () => alert('Signup failed')
-//     });
-//   }
-// }
-// src/app/components/signup/signup.component.ts
 // src/app/components/signup/signup.component.ts
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserauthService } from '../../services/userauth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -62,23 +11,61 @@ import { UserauthService } from '../../services/userauth.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  signupForm: FormGroup;
 
-  constructor(private userauthService: UserauthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private userauthService: UserauthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
+    this.signupForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validator: this.passwordMatcher });
+  }
+
+  passwordMatcher(formGroup: FormGroup): any {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    if (password !== confirmPassword) {
+      formGroup.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else {
+      return null;
+    }
+  }
 
   onSubmit(): void {
-    const signupDetails = { email: this.email, password: this.password,
-      name: "Sample",
-      role: "admin",
-      avatar: "https://th.bing.com/th?id=OIP.ywHdSgiEyb--OBN2gD2w1QHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-     };
+    if (this.signupForm.invalid) {
+      return;
+    }
+
+    const signupDetails = {
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+      name: 'Sample',
+      role: 'admin',
+      avatar: 'https://th.bing.com/th?id=OIP.ywHdSgiEyb--OBN2gD2w1QHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2'
+    };
 
     this.userauthService.userSignup(signupDetails)
       .subscribe({
-        next: () => this.router.navigate(['/login']),
-        error: (error) => this.errorMessage = error.error
+        next: () => {
+          this.snackBar.open('Signup successful, redirecting to login...', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+          setTimeout(() => this.router.navigate(['/login']), 3000);
+        },
+        error: (error) => {
+          this.snackBar.open('Signup failed', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
+        }
       });
   }
 }

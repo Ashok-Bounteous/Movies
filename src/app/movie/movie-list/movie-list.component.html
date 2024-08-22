@@ -1,8 +1,24 @@
-<!-- src/app/components/movie-list/movie-list.component.html -->
-<div class="movie-list">
-  <div *ngFor="let movie of movies$ | async" class="movie-item" (click)="onSelectMovie(movie)">
-    <img [src]="movie.Poster" alt="{{ movie.Title }}">
-    <h3>{{ movie.Title }}</h3>
-    <p>{{ movie.Year }}</p>
-  </div>
-</div>
+<!-- Swiper Container for Carousel -->
+<swiper-container
+  class="mySwiper"
+  pagination="true"
+  pagination-clickable="true"
+  navigation="true"
+  space-between="30"
+  loop="true"
+>
+  <swiper-slide *ngFor="let movie of movies$ | async">
+    <mat-card class="movie-item" (click)="onSelectMovie(movie)">
+      <mat-card-header>
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+        <mat-card-subtitle>{{ movie.Year }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image [src]="movie.Poster" alt="{{ movie.Title }}">
+      </mat-card-content>
+    </mat-card>
+  </swiper-slide>
+</swiper-container>
+
+<!-- Swiper Script -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
